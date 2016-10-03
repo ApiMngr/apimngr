@@ -11,14 +11,14 @@ object HomeController extends Controller {
   }
 
   def none = Action {
-    ???
+    Ok("")
   }
 
   def none1(path: String) = Action {
-    ???
+    Ok("")
   }
 
-  def none1(a: String, b: String, c: String) = Action {
-    ???
+  def none3(a: String, b: String, c: String) = Action {
+    Ok("")
   }
 }
