@@ -3,11 +3,16 @@ package controllers
 import javax.inject._
 import play.api._
 import play.api.mvc._
+import play.api.libs.json.Json
+import old.play.api.libs.concurrent.Execution.Implicits._
+import old.play.api.libs.ws._
 
 object HomeController extends Controller {
 
-  def index = Action {
-    Ok(views.html.index("Your new application is ready."))
+  def index = Action.async {
+    WS.url("http://freegeoip.net/json/").get.map { resp =>
+      Ok(Json.prettyPrint(resp.json)).as("application/json")
+    }
   }
 
   def none = Action {
