@@ -1,2 +1,0 @@
-# apimngr
-ApiMngr
