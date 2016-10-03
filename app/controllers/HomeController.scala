@@ -4,8 +4,7 @@ import javax.inject._
 import play.api._
 import play.api.mvc._
 
-@Singleton
-class HomeController @Inject() extends Controller {
+object HomeController extends Controller {
 
   def index = Action {
     Ok(views.html.index("Your new application is ready."))
@@ -15,8 +14,11 @@ class HomeController @Inject() extends Controller {
     ???
   }
 
-  def none(path: String) = Action {
+  def none1(path: String) = Action {
     ???
   }
 
+  def none1(a: String, b: String, c: String) = Action {
+    ???
+  }
 }
