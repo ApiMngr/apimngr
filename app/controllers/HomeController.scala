@@ -1,11 +1,10 @@
 package controllers
 
-import javax.inject._
 import play.api._
 import play.api.mvc._
-import play.api.libs.json.Json
-import old.play.api.libs.concurrent.Execution.Implicits._
+import play.api.libs.json._
 import old.play.api.libs.ws._
+import old.play.api.libs.concurrent.Execution.Implicits._
 
 object HomeController extends Controller {
 
