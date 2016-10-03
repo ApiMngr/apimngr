@@ -1,4 +1,4 @@
-name := """the-ram-project"""
+name := """ApiMngr"""
 
 version := "1.0-SNAPSHOT"
 

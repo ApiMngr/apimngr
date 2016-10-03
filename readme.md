@@ -1,4 +1,4 @@
-# apimngr
+# ApiMngr
 
 ApiMngr is a simple API Manager for RESTful APIs
 
