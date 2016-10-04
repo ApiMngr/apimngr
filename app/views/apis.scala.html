@@ -1,0 +1,60 @@
+@(tenant: Tenant, apis: Seq[Api])
+
+@lateralMenu = {
+    <ul class="nav nav-sidebar" id="apis-sidebar">
+        @for(api <- apis) {
+        <li><a href="@routes.HomeController.api(tenant.root, api.id)">@api.name</a></li>
+        }
+    </ul>
+}
+
+@main("Api Mng")(lateralMenu, moreUrl = s"/${tenant.root}", moreTitle = ":: " + tenant.name) {
+
+    <form class="form-horizontal">
+        <label>Create new API from Swagger descriptor</label>
+        <div class="form-group">
+            <label for="url" class="col-sm-2 control-label">URL</label>
+            <div class="col-sm-10">
+                <input type="text" class="form-control" id="url" placeholder="http://petstore.swagger.io/v2/swagger.json" value="http://petstore.swagger.io/v2/swagger.json">
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-sm-offset-2 col-sm-10">
+                <button id="create-api" type="submit" class="btn btn-default">Create API</button>
+            </div>
+        </div>
+    </form>
+    <pre id="result" style="display: none;"></pre>
+
+    <script>
+        $(function() {
+
+            function generateUrl(id) {
+                return '@routes.HomeController.api(tenant.root, ":id")'.replace(':id', id);
+            }
+
+           $('#create-api').click(function(e) {
+               e.preventDefault();
+               var url = $('#url').val();
+               fetch('@routes.AdminApiController.createApiFromSwaggerUrl(tenant.root)', {
+                   method: 'POST',
+                   credentials: 'include',
+                   headers: {
+                       'Accept': 'application/json',
+                       'Content-Type': 'application/json'
+                   },
+                   body: JSON.stringify({
+                     url: url
+                   })
+               }).then(function(r) {
+                   return r.json();
+               }).then(function(data) {
+                   $('#result').html(JSON.stringify(data, null, 2));
+                   $('#result').css('display', 'block');
+                   $('#apis-sidebar').append('<li><a href="' + generateUrl(data.id) + '">' + data.name + '</a></li>');
+               });
+           });
+        });
+    </script>
+
+}

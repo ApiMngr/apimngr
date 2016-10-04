@@ -19,4 +19,5 @@ object Tenant {
 
   def findByRoot(root: String): Future[Option[Tenant]] = Future.successful(tenants.find(_.root == root))
   def findById(id: String): Future[Option[Tenant]] = Future.successful(tenants.find(_.id == id))
+  def all(): Future[Seq[Tenant]] = Future.successful(tenants)
 }

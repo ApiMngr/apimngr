@@ -5,6 +5,7 @@ import java.util.UUID
 import akka.stream.scaladsl.Source
 import akka.util.ByteString
 import controllers.HomeController._
+import old.play.Env
 import old.play.api.libs.ws._
 import play.api.Logger
 import play.api.libs.json.{JsArray, JsObject, JsValue, Json}
@@ -44,6 +45,13 @@ case class Api(
     "schemes" -> this.schemes,
     "swagger" -> this.swagger
   )
+
+  def translatedDescriptor(tenantRoot: String): JsValue = {
+    val host = Env.configuration.getString("app.host").getOrElse("localhost:9090")
+    Json.parse(Json.stringify(this.swagger).replace((swagger \ "host").as[String], host)).as[JsObject] ++ Json.obj(
+      "basePath" -> s"/$tenantRoot/$group$root"
+    )
+  }
 
   def call(group: String, path: String, hostF: Api => String, req: Request[AnyContent])(implicit ec: ExecutionContext): Future[Result] = {
     val api = this
@@ -88,6 +96,8 @@ object Api {
     Api.apis = Api.apis :+ api
     Future.successful(api)
   }
+
+  def all(): Future[Seq[Api]] = Future.successful(apis)
 
   def apply(tenantId: String, blob: JsValue, group: String = "_"): Api = {
     val swagger = blob.as[JsObject]

@@ -1,13 +1,19 @@
 # Routes
 # ~~~~
 
+
+# Map static resources from the /public folder to the /assets URL path
+GET     /assets/*file               controllers.Assets.versioned(path="/public", file: Asset)
+
 GET     /                                  controllers.HomeController.index
 POST    /:tenant/create                    controllers.AdminApiController.createApiFromSwaggerUrl(tenant)
 GET     /:tenant/admin-ui                  controllers.HomeController.notImplemented1(tenant)
 GET     /:tenant/admin-api                 controllers.HomeController.notImplemented1(tenant)
 
-GET     /:tenant/admin                     controllers.HomeController.notImplemented1(tenant)
-GET     /:tenant/developers                controllers.HomeController.notImplemented1(tenant)
+GET     /:tenant/admin                                  controllers.HomeController.notImplemented1(tenant)
+GET     /:tenant/developers/:apiId                      controllers.HomeController.api(tenant, apiId)
+GET     /:tenant/developers/:apiId/swagger.json         controllers.HomeController.apiDescriptor(tenant, apiId)
+GET     /:tenant/developers                             controllers.HomeController.apis(tenant)
 
 GET     /:tenant/sandbox/:group/*api       controllers.CoreApiController.callSandboxApi(tenant, group, api)
 PUT     /:tenant/sandbox/:group/*api       controllers.CoreApiController.callSandboxApi(tenant, group, api)
@@ -25,6 +31,3 @@ PATCH   /:tenant/:group/*api               controllers.CoreApiController.callPro
 DELETE  /:tenant/:group/*api               controllers.CoreApiController.callProdApi(tenant, group, api)
 OPTIONS /:tenant/:group/*api               controllers.CoreApiController.callProdApi(tenant, group, api)
 HEAD    /:tenant/:group/*api               controllers.CoreApiController.callProdApi(tenant, group, api)
-
-# Map static resources from the /public folder to the /assets URL path
-GET     /assets/*file               controllers.Assets.versioned(path="/public", file: Asset)

@@ -26,13 +26,13 @@ if (process.env.NODE_ENV === 'production') {
 module.exports = {
   output: {
     path: '../public/javascripts/bundle/',
-    publicPath: '/js/bundle/',
+    publicPath: '/assets/javascripts/bundle/',
     filename: '[name].js',
     library: 'RAM',
     libraryTarget: 'umd'
   },
   externals: {
-    "jquery": "jQuery",
+    // "jquery": "jQuery",
   },
   entry: {
     bundle: './src/index.js',
@@ -41,7 +41,7 @@ module.exports = {
     extensions: ['', '.js', '.jsx', 'es6', '.css', '.less']
   },
   devServer: {
-    port: 3000,
+    port: 8080,
   },
   module: {
     loaders: [
