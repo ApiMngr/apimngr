@@ -2,29 +2,29 @@
 # ~~~~
 
 GET     /                                  controllers.HomeController.index
-GET     /create                            controllers.HomeController.createApiFromSwaggerUrl(url: Option[String])
-GET     /admin-ui                          controllers.HomeController.notImplemented
-GET     /admin-api                         controllers.HomeController.notImplemented
+POST    /:tenant/create                    controllers.AdminApiController.createApiFromSwaggerUrl(tenant)
+GET     /:tenant/admin-ui                  controllers.HomeController.notImplemented1(tenant)
+GET     /:tenant/admin-api                 controllers.HomeController.notImplemented1(tenant)
 
 GET     /:tenant/admin                     controllers.HomeController.notImplemented1(tenant)
 GET     /:tenant/developers                controllers.HomeController.notImplemented1(tenant)
 
-GET     /:tenant/sandbox/:group/*api       controllers.HomeController.callSandboxApi(tenant, group, api)
-PUT     /:tenant/sandbox/:group/*api       controllers.HomeController.callSandboxApi(tenant, group, api)
-POST    /:tenant/sandbox/:group/*api       controllers.HomeController.callSandboxApi(tenant, group, api)
-PATCH   /:tenant/sandbox/:group/*api       controllers.HomeController.callSandboxApi(tenant, group, api)
-DELETE  /:tenant/sandbox/:group/*api       controllers.HomeController.callSandboxApi(tenant, group, api)
-OPTIONS /:tenant/sandbox/:group/*api       controllers.HomeController.callSandboxApi(tenant, group, api)
-HEAD    /:tenant/sandbox/:group/*api       controllers.HomeController.callSandboxApi(tenant, group, api)
+GET     /:tenant/sandbox/:group/*api       controllers.CoreApiController.callSandboxApi(tenant, group, api)
+PUT     /:tenant/sandbox/:group/*api       controllers.CoreApiController.callSandboxApi(tenant, group, api)
+POST    /:tenant/sandbox/:group/*api       controllers.CoreApiController.callSandboxApi(tenant, group, api)
+PATCH   /:tenant/sandbox/:group/*api       controllers.CoreApiController.callSandboxApi(tenant, group, api)
+DELETE  /:tenant/sandbox/:group/*api       controllers.CoreApiController.callSandboxApi(tenant, group, api)
+OPTIONS /:tenant/sandbox/:group/*api       controllers.CoreApiController.callSandboxApi(tenant, group, api)
+HEAD    /:tenant/sandbox/:group/*api       controllers.CoreApiController.callSandboxApi(tenant, group, api)
 
 
-GET     /:tenant/:group/*api               controllers.HomeController.callProdApi(tenant, group, api)
-PUT     /:tenant/:group/*api               controllers.HomeController.callProdApi(tenant, group, api)
-POST    /:tenant/:group/*api               controllers.HomeController.callProdApi(tenant, group, api)
-PATCH   /:tenant/:group/*api               controllers.HomeController.callProdApi(tenant, group, api)
-DELETE  /:tenant/:group/*api               controllers.HomeController.callProdApi(tenant, group, api)
-OPTIONS /:tenant/:group/*api               controllers.HomeController.callProdApi(tenant, group, api)
-HEAD    /:tenant/:group/*api               controllers.HomeController.callProdApi(tenant, group, api)
+GET     /:tenant/:group/*api               controllers.CoreApiController.callProdApi(tenant, group, api)
+PUT     /:tenant/:group/*api               controllers.CoreApiController.callProdApi(tenant, group, api)
+POST    /:tenant/:group/*api               controllers.CoreApiController.callProdApi(tenant, group, api)
+PATCH   /:tenant/:group/*api               controllers.CoreApiController.callProdApi(tenant, group, api)
+DELETE  /:tenant/:group/*api               controllers.CoreApiController.callProdApi(tenant, group, api)
+OPTIONS /:tenant/:group/*api               controllers.CoreApiController.callProdApi(tenant, group, api)
+HEAD    /:tenant/:group/*api               controllers.CoreApiController.callProdApi(tenant, group, api)
 
 # Map static resources from the /public folder to the /assets URL path
 GET     /assets/*file               controllers.Assets.versioned(path="/public", file: Asset)
